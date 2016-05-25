@@ -27,6 +27,11 @@ class Workshop
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+    
+    /**
+     * @ORM\OnetoMany(targetEntity="PortfolioBundle\Entity\Domain", mappedBy="workshop")
+     */
+    private $domains;
 
 
     /**
@@ -62,5 +67,45 @@ class Workshop
     {
         return $this->name;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->domains = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add domain
+     *
+     * @param \PortfolioBundle\Entity\Domain $domain
+     *
+     * @return Workshop
+     */
+    public function addDomain(\PortfolioBundle\Entity\Domain $domain)
+    {
+        $this->domains[] = $domain;
+
+        return $this;
+    }
+
+    /**
+     * Remove domain
+     *
+     * @param \PortfolioBundle\Entity\Domain $domain
+     */
+    public function removeDomain(\PortfolioBundle\Entity\Domain $domain)
+    {
+        $this->domains->removeElement($domain);
+    }
+
+    /**
+     * Get domains
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDomains()
+    {
+        return $this->domains;
+    }
+}

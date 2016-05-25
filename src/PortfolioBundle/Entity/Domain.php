@@ -32,6 +32,11 @@ class Domain
      * @ORM\OneToMany(targetEntity="PortfolioBundle\Entity\Task", mappedBy="domain")
      */
     private $tasks;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="PortfolioBundle\Entity\Workshop", inversedBy="domains")
+     */
+    private $workshop;
 
 
     /**
@@ -107,5 +112,29 @@ class Domain
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    /**
+     * Set workshop
+     *
+     * @param \PortfolioBundle\Entity\Workshop $workshop
+     *
+     * @return Domain
+     */
+    public function setWorkshop(\PortfolioBundle\Entity\Workshop $workshop = null)
+    {
+        $this->workshop = $workshop;
+
+        return $this;
+    }
+
+    /**
+     * Get workshop
+     *
+     * @return \PortfolioBundle\Entity\Workshop
+     */
+    public function getWorkshop()
+    {
+        return $this->workshop;
     }
 }
