@@ -7,9 +7,15 @@
         {% stylesheets 'bundles/portfolio/css/*.css' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
+        {% javascripts '@PortfolioBundle/Resources/public/js/*.js' %}
+          <script src="{{ asset_url }}" defer></script>
+        {% endjavascripts %}
     </head>
     <body>
+        <nav>
+          <a href="{{ path('portfolio_task_index') }}">Accueil</a>
+          <a href="{{ path('portfolio_workshop_list') }}">Ateliers</a>
+        </nav>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
     </body>
 </html>
