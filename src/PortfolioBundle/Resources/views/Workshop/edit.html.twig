@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Édition de l'atelier {{ workshop.name }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>Édition de l'atelier {{ workshop.name }}</h1>
+{{ form_start(form) }}
+{{ form_rest(form) }}
+<input type="submit" value="Éditer">
+<a href="{{ path('portfolio_workshop_show', { slug: workshop.slug }) }}">Annuler</a>
+{{ form_end(form) }}
+{% endblock %}

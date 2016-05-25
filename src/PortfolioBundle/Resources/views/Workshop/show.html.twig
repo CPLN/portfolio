@@ -1,0 +1,9 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Atelier {{ workshop.name }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>Atelier {{ workshop.name }}</h1>
+<a href="{{ path('portfolio_workshop_edit', { slug: workshop.slug }) }}">Éditer</a>
+<a href="{{ path('portfolio_workshop_list') }}">Retour</a>
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace PortfolioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Workshop
@@ -29,10 +30,15 @@ class Workshop
     private $name;
     
     /**
-     * @ORM\OnetoMany(targetEntity="PortfolioBundle\Entity\Domain", mappedBy="workshop")
+     * @ORM\OneToMany(targetEntity="PortfolioBundle\Entity\Domain", mappedBy="workshop")
      */
     private $domains;
-
+    
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * Get id
@@ -107,5 +113,29 @@ class Workshop
     public function getDomains()
     {
         return $this->domains;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Workshop
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

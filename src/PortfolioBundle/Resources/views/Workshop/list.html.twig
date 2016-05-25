@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Ateliers - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>Ateliers</h1>
+<ul>
+  {% for workshop in workshops %}
+  <li><a href="{{ path('portfolio_workshop_show', { slug: workshop.slug }) }}">{{ workshop.name }}</a></li>
+  {% endfor %}
+  <li><a href="{{ path('portfolio_workshop_add') }}">Nouvel atelier</a></li>
+</ul>
+{% endblock %}
