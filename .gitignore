@@ -11,3 +11,4 @@
 !var/sessions/.gitkeep
 /phpunit.xml
 *.db3
+*~

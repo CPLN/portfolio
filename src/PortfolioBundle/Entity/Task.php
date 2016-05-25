@@ -68,6 +68,10 @@ class Task
      */
     private $domain;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="PortfolioBundle\Entity\User", mappedBy="tasks")
+     */
+    private $users;
 
     /**
      * Get id
@@ -245,5 +249,46 @@ class Task
     public function getDomain()
     {
         return $this->domain;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user
+     *
+     * @param \PortfolioBundle\Entity\User $user
+     *
+     * @return Task
+     */
+    public function addUser(\PortfolioBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \PortfolioBundle\Entity\User $user
+     */
+    public function removeUser(\PortfolioBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }
