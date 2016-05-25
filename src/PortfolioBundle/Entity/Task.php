@@ -59,9 +59,9 @@ class Task
     /**
      * @var bool
      *
-     * @ORM\Column(name="obligatory", type="boolean")
+     * @ORM\Column(name="mandatory", type="boolean")
      */
-    private $obligatory;
+    private $mandatory;
     
     /**
      * @ORM\ManyToOne(targetEntity="PortfolioBundle\Entity\Domain", inversedBy="tasks")
@@ -72,6 +72,16 @@ class Task
      * @ORM\ManyToMany(targetEntity="PortfolioBundle\Entity\User", mappedBy="tasks")
      */
     private $users;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="PortfolioBundle\Entity\Task", inversedBy="childrenTasks")
+     */
+    private $parentTasks;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="PortfolioBundle\Entity\Task", mappedBy="parentTasks")
+     */
+    private $childrenTasks;
 
     /**
      * Get id
@@ -204,27 +214,27 @@ class Task
     }
 
     /**
-     * Set obligatory
+     * Set mandatory
      *
-     * @param boolean $obligatory
+     * @param boolean $mandatory
      *
      * @return Task
      */
-    public function setObligatory($obligatory)
+    public function setMandatory($mandatory)
     {
-        $this->obligatory = $obligatory;
+        $this->mandatory = $mandatory;
 
         return $this;
     }
 
     /**
-     * Get obligatory
+     * Get mandatory
      *
      * @return bool
      */
-    public function getObligatory()
+    public function getMandatory()
     {
-        return $this->obligatory;
+        return $this->mandatory;
     }
 
     /**
@@ -290,5 +300,73 @@ class Task
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Add parentTask
+     *
+     * @param \PortfolioBundle\Entity\Task $parentTask
+     *
+     * @return Task
+     */
+    public function addParentTask(\PortfolioBundle\Entity\Task $parentTask)
+    {
+        $this->parentTasks[] = $parentTask;
+
+        return $this;
+    }
+
+    /**
+     * Remove parentTask
+     *
+     * @param \PortfolioBundle\Entity\Task $parentTask
+     */
+    public function removeParentTask(\PortfolioBundle\Entity\Task $parentTask)
+    {
+        $this->parentTasks->removeElement($parentTask);
+    }
+
+    /**
+     * Get parentTasks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getParentTasks()
+    {
+        return $this->parentTasks;
+    }
+
+    /**
+     * Add childrenTask
+     *
+     * @param \PortfolioBundle\Entity\Task $childrenTask
+     *
+     * @return Task
+     */
+    public function addChildrenTask(\PortfolioBundle\Entity\Task $childrenTask)
+    {
+        $this->childrenTasks[] = $childrenTask;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenTask
+     *
+     * @param \PortfolioBundle\Entity\Task $childrenTask
+     */
+    public function removeChildrenTask(\PortfolioBundle\Entity\Task $childrenTask)
+    {
+        $this->childrenTasks->removeElement($childrenTask);
+    }
+
+    /**
+     * Get childrenTasks
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildrenTasks()
+    {
+        return $this->childrenTasks;
     }
 }
