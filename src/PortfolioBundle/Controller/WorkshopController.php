@@ -3,7 +3,9 @@
 namespace PortfolioBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PortfolioBundle\Entity\Workshop;
@@ -16,6 +18,7 @@ class WorkshopController extends Controller
 {
     /**
      * @Route("/")
+     * @Method({"GET"})
      * @Template()
      */
     public function listAction()
@@ -27,6 +30,7 @@ class WorkshopController extends Controller
 
     /**
      * @Route("/add")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function addAction(Request $request)
@@ -46,6 +50,7 @@ class WorkshopController extends Controller
 
     /**
      * @Route("/{slug}")
+     * @Method({"GET"})
      * @Template()
      */
     public function showAction($slug)
@@ -57,6 +62,7 @@ class WorkshopController extends Controller
 
     /**
      * @Route("/{slug}/edit")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function editAction($slug, Request $request)
@@ -74,11 +80,33 @@ class WorkshopController extends Controller
     }
 
     /**
-     * @Route("/{slug}/delete")
+     * @Route("/{slug}/delete", requirements={"method" = "GET"})
+     * @Method({"GET"})
      * @Template()
      */
-    public function deleteAction($slug)
+    public function deleteAction($slug, Request $request)
     {
-        return [];
+        $em = $this->getDoctrine()->getManager();
+        $workshop = $em->getRepository('PortfolioBundle:Workshop')->findOneBySlug($slug);
+        $form = $this->createFormBuilder()
+          ->setAction($this->generateUrl('portfolio_workshop_delete', ['slug' => $workshop->getSlug()]))
+          ->setMethod('DELETE')
+          ->add('submit', SubmitType::class, ['label' => 'Supprimer'])
+          ->getForm();
+
+        return ['workshop' => $workshop, 'form' => $form->createView()];
+    }
+    
+    /**
+     * @Route("/{slug}/delete", requirements={"method" = "DELETE"})
+     * @Method({"DELETE"})
+     */
+    public function confirmDeleteAction($slug, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $workshop = $em->getRepository('PortfolioBundle:Workshop')->findOneBySlug($slug);
+        $em->remove($workshop);
+        $em->flush();
+        return $this->redirect($this->generateUrl('portfolio_workshop_list'));
     }
 }

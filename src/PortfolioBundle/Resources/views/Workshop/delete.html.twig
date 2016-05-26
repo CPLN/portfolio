@@ -1,7 +1,10 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}PortfolioBundle:Workshop:delete{% endblock %}
+{% block title %}Suppression de {{ workshop.name }} - {{ parent() }}{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Workshop:delete page</h1>
+<h1>Suppression de {{ workshop.name }}</h1>
+<p>Confirmer la suppression de {{ workshop.name }} ? Cette action est irréversible !</p>
+{{ form(form) }}
+<a href="{{ path('portfolio_workshop_show', { slug: workshop.slug }) }}">Annuler</a>
 {% endblock %}
