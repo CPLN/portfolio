@@ -62,9 +62,19 @@ class UserController extends Controller
     /**
      * @Route("/connection/{token}")
      * @Method({"GET"})
-     * @Template()
      */
     public function connectionAction($token) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('PortfolioBundle:User')->findOneByConnectionToken($token);
+        if ($user != null) {
+            if ($user->connect($token)) {
+                $this->container->get('fos_user.security.login_manager')->loginUser('main', $user);
+                $user->setConnectionToken(null);
+                $user->setConnectionRequestTime(null);
+                $em->flush();
+            }
+        }
+        return $this->redirect($this->generateUrl('portfolio_task_index'));
     }
     
     private function generateToken($length = 20) {

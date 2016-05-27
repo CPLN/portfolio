@@ -123,9 +123,9 @@ class User extends BaseUser
     }
     
     public function connect($token) {
-      if (getConnectionToken() != null && getConnectionRequestTime() != null)
+      if ($this->getConnectionToken() != null && $this->getConnectionRequestTime() != null)
       {
-        return getConnectionToken() == $token && (new \DateTime())->getTimestamp() - getConnectionRequestTime()->getTimestamp() > UserController::$CONNECTION_WINDOW;
+        return $this->getConnectionToken() == $token && (new \DateTime())->getTimestamp() - $this->getConnectionRequestTime()->getTimestamp() > User::$CONNECTION_WINDOW;
       }
     }
 }
