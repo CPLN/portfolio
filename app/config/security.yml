@@ -24,6 +24,7 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
+                login_path: /user/login
                 csrf_token_generator: security.csrf.token_manager
             logout: true
             anonymous: true

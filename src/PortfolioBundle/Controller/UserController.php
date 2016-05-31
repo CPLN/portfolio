@@ -14,12 +14,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("/")
+ * @Route("/user")
  */
 class UserController extends Controller
 {
    /**
-    * @Route("/user/")
+    * @Route("/")
     * @Method({"GET"})
     * @Template()
     */
