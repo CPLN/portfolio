@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Domaine {{ domain.name }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>Atelier {{ domain.name }}</h1>
+<a href="{{ path('portfolio_domain_edit', { slug: domain.slug }) }}">Éditer</a>
+<a href="{{ path('portfolio_domain_delete', { slug: domain.slug }) }}">Supprimer</a>
+<a href="{{ path('portfolio_domain_list') }}">Retour</a>
+{% endblock %}

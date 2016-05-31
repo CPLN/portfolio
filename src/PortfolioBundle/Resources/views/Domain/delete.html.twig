@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Suppression de {{ domain.name }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>Suppression de {{ domain.name }}</h1>
+<p>Confirmer la suppression de {{ domain.name }} ? Cette action est irréversible !</p>
+{{ form(form) }}
+<a href="{{ path('portfolio_domain_show', { slug: domain.slug }) }}">Annuler</a>
+{% endblock %}

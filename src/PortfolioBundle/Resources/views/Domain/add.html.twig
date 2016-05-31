@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Ajouter un domaine - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>Ajouter un domaine</h1>
+{{ form_start(form) }}
+{{ form_rest(form) }}
+<input type="submit" value="Ajouter">
+<a href="{{ path('portfolio_domain_list') }}">Annuler</a>
+{{ form_end(form) }}
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace PortfolioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Domain
@@ -38,7 +39,12 @@ class Domain
      */
     private $workshop;
 
-
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+    
     /**
      * Get id
      *
@@ -137,4 +143,28 @@ class Domain
     {
         return $this->workshop;
     }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Domain
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }    
 }
