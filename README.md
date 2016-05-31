@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 portfolio
 =========
 
@@ -19,4 +18,3 @@ Votre mot de passe doit contenir :
  - et le sang d'une vierge !
  
  [MISC N°85]
->>>>>>> 6b982763c2731749208df61d076eaef224551ebc
