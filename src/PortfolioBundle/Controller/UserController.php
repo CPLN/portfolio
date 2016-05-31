@@ -64,7 +64,7 @@ class UserController extends Controller
      * @Route("/connection/{token}")
      * @Method({"GET"})
      */
-    public function connectionAction($token) {
+    public function connectionAction($token, Request $request) {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('PortfolioBundle:User')->findOneByConnectionToken($token);
         if ($user != null) {
@@ -74,7 +74,18 @@ class UserController extends Controller
                 $user->setConnectionRequestTime(null);
                 $em->flush();
             }
+            else {
+              $session = $request->getSession();
+              $session->start();
+              $session->getFlashBag()->add('error', 'Le lien de connexion est expiré, veuillez en demander un autre.');
+            }
         }
+        else {
+          $session = $request->getSession();
+          $session->start();
+          $session->getFlashBag()->add('error', 'Ce lien est invalide, peut-être a-t-il été déjà utilisé. Les liens de connexion sont à usage unique, veuillez en demander un autre.');
+        }
+        
         return $this->redirect($this->generateUrl('portfolio_task_index'));
     }
     
@@ -88,3 +99,4 @@ class UserController extends Controller
         return $result;
     }
 }
+

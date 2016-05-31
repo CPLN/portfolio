@@ -18,6 +18,29 @@
           <a href="{{ path('portfolio_workshop_list') }}">Ateliers</a>
           <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
         </nav>
+        {% if app.request.hasPreviousSession %}
+          {% for failure in app.session.flashBag.get('failure') %}
+            <div class="flashbag failure">{{ failure }}</div>
+          {% endfor %}
+          
+          {% for error in app.session.flashBag.get('error') %}
+            <div class="flashbag error">{{ error }}</div>
+          {% endfor %}
+          
+          {% for warning in app.session.flashBag.get('warning') %}
+            <div class="flashbag warning">{{ warning }}</div>
+          {% endfor %}
+          
+          {% for info in app.session.flashBag.get('info') %}
+            <div class="flashbag info">{{ info }}</div>
+          {% endfor %}
+          
+          {% if is_granted('ROLE_ADMIN') %}
+            {% for debug in app.session.flashBag.get('debug') %}
+              <div class="flashbag debug">{{ debug }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>
