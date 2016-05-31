@@ -37,6 +37,14 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->setPassword(\uniqid('', true));
+    }
+    
+    public function setEmail($email) {
+      parent::setEmail($email);
+      if($this->getUsername() == null) {
+        $this->setUsername($email);
+      }
     }
 
     /**

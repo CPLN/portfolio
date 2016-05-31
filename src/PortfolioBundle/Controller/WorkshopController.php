@@ -7,12 +7,14 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use PortfolioBundle\Entity\Workshop;
 use PortfolioBundle\Form\WorkshopType;
 
 /**
  * @Route("/workshop")
+ * @Security("has_role('ROLE_USER')")
  */
 class WorkshopController extends Controller
 {

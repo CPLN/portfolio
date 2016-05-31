@@ -10,15 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("/user")
+ * @Route("/")
  */
 class UserController extends Controller
 {
    /**
-    * @Route("/")
+    * @Route("/user/")
     * @Method({"GET"})
     * @Template()
     */

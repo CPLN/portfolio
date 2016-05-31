@@ -3,5 +3,9 @@ portfolio:
     type:     annotation
     prefix:   /
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+fos_user_security_login:
+    path: /user/login
+    defaults: { _controller: PortfolioBundle:User:login }
+
+#fos_user:
+#    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
