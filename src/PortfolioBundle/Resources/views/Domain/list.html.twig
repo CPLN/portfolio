@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Domaines - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>Domaines</h1>
+<ul>
+  {% for domain in domains %}
+  <li><a href="{{ path('portfolio_domain_show', { slug: domain.slug }) }}">{{ domain.name }}</a></li>
+  {% endfor %}
+  <li><a href="{{ path('portfolio_domain_add') }}">Nouveau domaine</a></li>
+</ul>
+{% endblock %}
