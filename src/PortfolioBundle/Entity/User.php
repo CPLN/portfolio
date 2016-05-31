@@ -133,7 +133,7 @@ class User extends BaseUser
     public function connect($token) {
       if ($this->getConnectionToken() != null && $this->getConnectionRequestTime() != null)
       {
-        return $this->getConnectionToken() == $token && (new \DateTime())->getTimestamp() - $this->getConnectionRequestTime()->getTimestamp() > User::$CONNECTION_WINDOW;
+        return strcmp($this->getConnectionToken(), $token) == 0 && (new \DateTime())->getTimestamp() - $this->getConnectionRequestTime()->getTimestamp() < User::$CONNECTION_WINDOW;
       }
     }
 }
