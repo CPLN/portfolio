@@ -12,7 +12,7 @@ CREATE TABLE Modules (
   	PRIMARY KEY (id)
 );
 
---Table Skills
+-- Table Skills
 CREATE TABLE Skills (
   tasksId		INTEGER,
   modulesId		INTEGER,
@@ -57,7 +57,7 @@ CREATE TABLE Domains (
   	PRIMARY KEY (id)
 );
 
---Table Tasks
+-- Table Tasks
 CREATE TABLE Tasks (
   id		   INTEGER,
   domainsId    INTEGER,
@@ -73,7 +73,7 @@ CREATE TABLE Tasks (
   	PRIMARY KEY (id)
 );
 
---Table Prerequistes
+-- Table Prerequistes
 CREATE TABLE Prerequistes (
   tasksId				INTEGER,
   prerequiredTaskId		INTEGER,
@@ -82,7 +82,7 @@ CREATE TABLE Prerequistes (
 );
 
 
---Table Needs
+-- Table Needs
 CREATE TABLE Needs (
   tasksId		INTEGER,
   materialsId		INTEGER,
