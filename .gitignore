@@ -22,3 +22,7 @@ application/logs/*
 *.stTheme.cache
 *.sublime-workspace
 *.sublime-project
+
+composer.phar/*
+password
+.editorconfig

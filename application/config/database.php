@@ -79,7 +79,7 @@ $db['default'] = array(
 	'username' => 'portfolio_client',
 	'password' => 'db4Portfoli0', /* hihihi c'est pas celui là */
 	'database' => 'portfolio',
-	'dbdriver' => 'mysqli',
+	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
