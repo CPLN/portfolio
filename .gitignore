@@ -26,4 +26,4 @@ application/logs/*
 composer.phar/*
 password
 .editorconfig
-application/config/database.php
+application/config/*
