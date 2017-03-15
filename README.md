@@ -13,3 +13,5 @@ Votre mot de passe doit contenir :
  - et le sang d'une vierge !
  
  [MISC N°85]
+
+Test de conflit...
