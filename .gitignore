@@ -1,5 +1,7 @@
 .DS_Store
 
+application/database/portfolio.db
+
 application/cache/*
 !application/cache/index.html
 !application/cache/.htaccess
@@ -23,7 +25,9 @@ application/logs/*
 *.sublime-workspace
 *.sublime-project
 
-composer.phar/*
-password
+## PHPStorm
+composer.phar
 .editorconfig
-application/config/*
+
+## PiF
+password
