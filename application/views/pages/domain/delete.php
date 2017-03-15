@@ -6,4 +6,3 @@
  * Time: 16:19
  */
 ?>
-<h1>Supprimer</h1>

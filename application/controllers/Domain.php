@@ -18,45 +18,28 @@ class Domain extends CI_Controller
     {
         parent::__construct();
         $this->load->database();
+        $this->load->model('Domain_model');
     }
 
     public function index()
     {
-        $page = 'index';
-        if ( ! file_exists(APPPATH.'views/pages/domain/'.$page.'.php'))
-        {
-            show_404();
-        }
-
-        $data['title'] = 'Accueil';
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('pages/domain/'.$page, $data);
-        $this->load->view('templates/footer', $data);
+        $domains = $this->Domain_model->findAll();
+        $this->load->view('templates/header', ['title' => lang('pf_home')]);
+        $this->load->view('pages/domain/index', ['domains' => $domains]);
+        $this->load->view('templates/footer');
     }
 
     public function add()
     {
-        $data['title'] = 'Ajouter';
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('pages/domain/add', $data);
-        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/header', ['title' => lang('pf_add')]);
+        $this->load->view('pages/domain/add');
+        $this->load->view('templates/footer');
     }
 
     public function delete($id = 0)
     {
-        $page = 'del';
-        if ( ! file_exists(APPPATH.'views/pages/domain/'.$page.'.php'))
-        {
-            show_404();
-        }
-
-        $data['title'] = 'Supprimer';
-        $data['id'] = $id;
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('pages/domain/'.$page, $data);
-        $this->load->view('templates/footer', $data);
+        $this->load->view('templates/header', ['title' => lang('pf_delete')]);
+        $this->load->view('pages/domain/delete', ['id' => $id]);
+        $this->load->view('templates/footer');
     }
 }

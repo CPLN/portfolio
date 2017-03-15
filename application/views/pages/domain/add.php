@@ -7,4 +7,3 @@
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 ?>
-<h1>Ajouter un domaine</h1>
