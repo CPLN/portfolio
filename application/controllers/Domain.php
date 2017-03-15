@@ -8,6 +8,18 @@
  */
 class Domain extends CI_Controller
 {
+
+    /**
+     * Domain constructor.
+     * First we call the parent construct to initialize all methods
+     * and then, we charge the database query builder
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+    }
+
     public function index()
     {
         $page = 'index';
@@ -23,26 +35,12 @@ class Domain extends CI_Controller
         $this->load->view('templates/footer', $data);
     }
 
-    public function add($id = 0)
+    public function add()
     {
-        $page = 'add';
-        if ( ! file_exists(APPPATH.'views/pages/domain/'.$page.'.php'))
-        {
-            show_404();
-        }
-        $this->load->helper('portfolio_helper');
-        $ret = sanitize_int($id);
-        if($ret !== FALSE) {
-            $data['id'] = $ret;
-        }
-        else {
-            show_error("La valeur fournie n'est pas une valeur entière valide");
-            header('index.php');
-        }
         $data['title'] = 'Ajouter';
 
         $this->load->view('templates/header', $data);
-        $this->load->view('pages/domain/'.$page, $data);
+        $this->load->view('pages/domain/add', $data);
         $this->load->view('templates/footer', $data);
     }
 

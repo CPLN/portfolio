@@ -78,11 +78,11 @@ $db['dev'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'DB12portfolio',
-	'dbdriver' => 'pdo',
+	'database' => APPPATH . 'database/portfolio.db',
+	'dbdriver' => 'sqlite3',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => TRUE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
@@ -94,24 +94,4 @@ $db['dev'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-$db['production'] = array(
-    'dsn'	=> '',
-    'hostname' => 'localhost',
-    'username' => 'DBuser12pfolio',
-    'password' => 'qhyuie7MWRJ#D',
-    'database' => 'DB12portfolio',
-    'dbdriver' => 'pdo',
-    'dbprefix' => '',
-    'pconnect' => FALSE,
-    'db_debug' => (ENVIRONMENT !== 'production'),
-    'cache_on' => FALSE,
-    'cachedir' => '',
-    'char_set' => 'utf8',
-    'dbcollat' => 'utf8_general_ci',
-    'swap_pre' => '',
-    'encrypt' => FALSE,
-    'compress' => FALSE,
-    'stricton' => FALSE,
-    'failover' => array(),
-    'save_queries' => TRUE
-);
+
