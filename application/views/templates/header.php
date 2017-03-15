@@ -9,7 +9,6 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 ?>
 <html>
     <head>
-        <title>Portfolio - CPLN</title>
+        <title><?php print $title; ?> - Portfolio - CPLN</title>
     </head>
     <body>
-        <h1><?php echo $title; ?></h1>

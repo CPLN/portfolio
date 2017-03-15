@@ -8,5 +8,16 @@
  */
 class Domain_model extends CI_Model
 {
+    const TABLE = 'domains';
 
+    public function findAll()
+    {
+        return $this->db->get(self::TABLE)->result_object();
+    }
+
+    public function add($name)
+    {
+        $data = array('name' => trim($name));
+        return $this->db->insert(self::TABLE, $data);
+    }
 }
