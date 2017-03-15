@@ -18,12 +18,12 @@ class Domain extends CI_Controller
     {
         parent::__construct();
         $this->load->database();
-        $this->load->model('Domain_model');
+        $this->load->model('domain_model');
     }
 
     public function index()
     {
-        $domains = $this->Domain_model->findAll();
+        $domains = $this->domain_model->findAll();
         $this->load->view('templates/header', ['title' => lang('pf_home')]);
         $this->load->view('pages/domain/index', ['domains' => $domains]);
         $this->load->view('templates/footer');
@@ -31,8 +31,16 @@ class Domain extends CI_Controller
 
     public function add()
     {
+        $this->load->library('table');
+
+        $name = $this->input->post('name');
+        $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
+        if($this->form_validation->run()) {
+            $this->domain_model->add($name);
+            redirect('/domain');
+        }
         $this->load->view('templates/header', ['title' => lang('pf_add')]);
-        $this->load->view('pages/domain/add');
+        $this->load->view('pages/domain/add', array('name' => $name));
         $this->load->view('templates/footer');
     }
 

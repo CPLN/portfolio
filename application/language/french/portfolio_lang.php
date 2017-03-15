@@ -11,3 +11,4 @@ $lang['pf_home'] = 'Accueil';
 $lang['pf_add']  = 'Ajouter';
 $lang['pf_delete'] = 'Supprimer';
 $lang['pf_domains'] = 'Domaines';
+$lang['pf_name'] = 'Nom';
