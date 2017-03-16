@@ -12,4 +12,5 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
     <?php foreach ($domains as $domain): ?>
     <li><?php echo $domain->name; ?></li>
     <?php endforeach; ?>
+    <li><a href="<?php echo site_url('/domain/add') ?>"><?php echo lang('pf_add') ?></a></li>
 </ul>
