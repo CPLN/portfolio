@@ -6,5 +6,8 @@
  * Time: 16:16
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+$this->load->view('pages/domain/_form', ['submit' => lang('pf_add')]);
+
 ?>
-<h1>Ajouter un domaine</h1>
+<p><a href="<?php echo site_url('/domain/') ?>"><?php echo lang('pf_back') ?></a></p>

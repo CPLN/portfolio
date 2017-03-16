@@ -7,6 +7,6 @@
  */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 ?>
-        <em>&copy; 2017 - <?php $year = date('Y'); print $year = ($year > 2017) ? "2017-$year" : $year;?></em>
+        <em>&copy; <?php $year = date('Y'); print ($year > 2017) ? "2017 - $year" : $year;?></em>
     </body>
 </html>
