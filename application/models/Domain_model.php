@@ -32,17 +32,16 @@ class Domain_model extends CI_Model
 
     public function edit($domain)
     {
-      var_dump($domain);
       $domain = $this->clean($domain);
       var_dump($domain);
       $this->db->where('id', $domain->id);
       return $this->db->update(self::TABLE, $domain);
     }
 
-    public function delete($id)
+    public function delete($domain)
     {
-      $data = array('id' => $id);
-      return $this->db->delete(self::TABLE, $data);
+      $this->db->where('id', $domain->id);
+      return $this->db->delete(self::TABLE);
     }
 
     public function clean($domain)

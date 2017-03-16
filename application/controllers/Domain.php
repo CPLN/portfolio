@@ -82,13 +82,14 @@ class Domain extends CI_Controller
 
     public function delete($id)
     {
+        $domain = $this->domain_model->findOne($id);
         $validation = $this->input->post('delete_confirm');
         if (isset($validation)) {
-          $this->domain_model->delete($id);
+          $this->domain_model->delete($domain);
           redirect('/domain');
         }
         $this->load->view('templates/header', ['title' => lang('pf_delete')]);
-        $this->load->view('pages/domain/delete', ['id' => $id]);
+        $this->load->view('pages/domain/delete', ['domain' => $domain]);
         $this->load->view('templates/footer');
     }
 }
