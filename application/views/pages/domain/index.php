@@ -10,7 +10,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 <h1><?php echo lang('pf_domains');?></h1>
 <ul>
     <?php foreach ($domains as $domain): ?>
-    <li><?php echo $domain->name; ?></li>
+    <li><?php echo $domain->name; ?> <a href="<?php echo site_url('/domain/delete/' . $domain->id) ?>"><?php echo lang('pf_delete') ?></a></li>
     <?php endforeach; ?>
     <li><a href="<?php echo site_url('/domain/add') ?>"><?php echo lang('pf_add') ?></a></li>
 </ul>
