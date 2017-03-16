@@ -20,4 +20,10 @@ class Domain_model extends CI_Model
         $data = array('name' => trim($name));
         return $this->db->insert(self::TABLE, $data);
     }
+
+    public function delete($id)
+    {
+      $data = array('id' => $id);
+      return $this->db->delete(self::TABLE, $data);
+    }
 }

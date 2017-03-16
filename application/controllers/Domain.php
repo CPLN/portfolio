@@ -44,8 +44,13 @@ class Domain extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function delete($id = 0)
+    public function delete($id)
     {
+        $validation = $this->input->post('delete_confirm');
+        if (isset($validation)) {
+          $this->domain_model->delete($id);
+          redirect('/domain');
+        }
         $this->load->view('templates/header', ['title' => lang('pf_delete')]);
         $this->load->view('pages/domain/delete', ['id' => $id]);
         $this->load->view('templates/footer');

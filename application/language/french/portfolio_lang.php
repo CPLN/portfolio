@@ -7,8 +7,13 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['pf_home'] = 'Accueil';
-$lang['pf_add']  = 'Ajouter';
+// Termes génériques
+$lang['pf_add'] = 'Ajouter';
 $lang['pf_delete'] = 'Supprimer';
-$lang['pf_domains'] = 'Domaines';
+$lang['pf_delete_confirm'] = 'Êtes-vous sûr(e) de vouloir supprimer cet élément ? Cette action est définitive.';
+$lang['pf_home'] = 'Accueil';
 $lang['pf_name'] = 'Nom';
+$lang['pf_validate'] = 'Valider';
+
+// Domaine
+$lang['pf_domains'] = 'Domaines';
