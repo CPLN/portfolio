@@ -26,7 +26,7 @@ class Domain_model extends CI_Model
 
     public function add($domain)
     {
-      $domain = $this->clean();
+      $domain = $this->clean($domain);
       return $this->db->insert(self::TABLE, $domain);
     }
 
