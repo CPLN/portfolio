@@ -9,6 +9,6 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 ?>
 <html>
     <head>
-        <title><?php print $title; ?> - Portfolio - CPLN</title>
+        <title><?php echo xss_clean($title) ?> - Portfolio - CPLN</title>
     </head>
     <body>
