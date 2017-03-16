@@ -14,5 +14,6 @@
     <?php echo form_open() ?>
     <?php echo form_submit('delete_confirm', lang('pf_validate')) ?>
     <?php echo form_close() ?>
+    <a href="<?php echo site_url('/domain/') ?>"><?php echo lang('pf_back') ?></a>
   </p>
 </div>
