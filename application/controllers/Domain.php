@@ -34,14 +34,51 @@ class Domain extends CI_Controller
         $this->load->library('table');
 
         $name = $this->input->post('name');
+
         $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
         if($this->form_validation->run()) {
-            $this->domain_model->add($name);
+            $domain = new $this->domain_model();
+            $domain->name = $name;
+
+            $this->domain_model->add($domain);
             redirect('/domain');
         }
         $this->load->view('templates/header', ['title' => lang('pf_add')]);
         $this->load->view('pages/domain/add', array('name' => $name));
         $this->load->view('templates/footer');
+    }
+
+    public function show($id)
+    {
+      $domain = $this->domain_model->findOne($id);
+
+      $this->load->view('templates/header', ['title' => $domain->name]);
+      $this->load->view('pages/domain/show', ['domain' => $domain]);
+      $this->load->view('templates/footer');
+    }
+
+    public function edit($id)
+    {
+      $this->load->library('table');
+
+      $domain = $this->domain_model->findOne($id);
+
+      if ($this->input->post('name') === $domain->name) {
+        redirect('/domain/show/' . $id);
+      }
+
+      $name = $this->input->post('name') ?: $domain->name;
+
+      $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
+      if($this->form_validation->run()) {
+          $domain->name = $name;
+          $this->domain_model->edit($domain);
+          redirect('/domain/show/' . $id);
+      }
+
+      $this->load->view('templates/header', ['title' => $domain->name]);
+      $this->load->view('pages/domain/edit', ['domain' => $domain, 'name' => $name]);
+      $this->load->view('templates/footer');
     }
 
     public function delete($id)
