@@ -37,10 +37,11 @@ class Domain extends CI_Controller
 
         $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
         if($this->form_validation->run()) {
+            //TODO $domain = new object();
             $domain->name = $name;
 
             $this->domain_model->add($domain);
-            redirect('/domain');
+            redirect('/domain'); //TODO Rediriger vers show
         }
         $this->load->view('templates/header', ['title' => lang('pf_add')]);
         $this->load->view('pages/domain/add', array('name' => $name));
