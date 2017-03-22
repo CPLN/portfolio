@@ -19,3 +19,6 @@ $lang['pf_validate'] = 'Valider';
 
 // Domaine
 $lang['pf_domains'] = 'Domaines';
+
+// Utilisateur
+$lang['pf_anonymous'] = 'Anonyme';

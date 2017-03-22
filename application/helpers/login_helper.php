@@ -12,7 +12,23 @@ if (!function_exists('remember_user'))
 if (!function_exists('get_user'))
 {
     function get_user() {
-        return $_SESSION['authenticatedUser'];
+        $user = null;
+        try
+        {
+            if (!isset($_SESSION['authenticatedUser'])) throw new Exception();
+            $user = $_SESSION['authenticatedUser'];
+            if ($user === null) throw new Exception();
+        }
+        catch (Exception $e)
+        {
+            $CI = get_instance();
+            $CI->load->model('user_model');
+            $user = $CI->user_model->getAnonymous();
+        }
+        finally
+        {
+            return $user;
+        }
     }
 }
 

@@ -2,9 +2,9 @@
 
 class User extends CI_Controller
 {
-    public function __constructor()
+    public function __construct()
     {
-        parent::__constructor();
+        parent::__construct();
         $this->load->database();
         $this->load->model('user_model');
     }
