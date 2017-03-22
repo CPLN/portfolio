@@ -24,8 +24,8 @@ class Material extends CI_Controller
     public function index()
     {
         $materials = $this->material_model->findAll();
-        $this->load->view('templates/header', array('title' => lang('pf_home')));
-        $this->load->view('pages/material/index', array('materials' => $materials));
+        $this->load->view('templates/header', ['title' => lang('pf_home')]);
+        $this->load->view('pages/material/index', ['materials' => $materials]);
         $this->load->view('templates/footer');
     }
 
@@ -41,12 +41,12 @@ class Material extends CI_Controller
 
         $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[materials.name]');
         if($this->form_validation->run()) {
-            $material = (object) array('name' => $name);
+            $material = (object) ['name' => $name];
             $this->material_model->add($material);
             redirect('/material');
         }
-        $this->load->view('templates/header', array('title' => lang('pf_add')));
-        $this->load->view('pages/material/add', array('name' => $name));
+        $this->load->view('templates/header', ['title' => lang('pf_add')]);
+        $this->load->view('pages/material/add', ['name' => $name]);
         $this->load->view('templates/footer');
     }
 
@@ -57,8 +57,8 @@ class Material extends CI_Controller
           redirect('/material'); // évite un message d'erreur si l'utilisateur change le numéro dans la barre d'adresse
       }
 
-      $this->load->view('templates/header', array('title' => $material->name));
-      $this->load->view('pages/material/show', array('material' => $material));
+      $this->load->view('templates/header', ['title' => $material->name]);
+      $this->load->view('pages/material/show', ['material' => $material]);
       $this->load->view('templates/footer');
     }
 
