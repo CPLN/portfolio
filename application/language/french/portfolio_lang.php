@@ -16,6 +16,7 @@ $lang['pf_edit'] = 'Éditer';
 $lang['pf_home'] = 'Accueil';
 $lang['pf_name'] = 'Nom';
 $lang['pf_validate'] = 'Valider';
+$lang['pf_module_title'] = 'Titre du module';
 
 // Domaine
 $lang['pf_domains'] = 'Domaines';
