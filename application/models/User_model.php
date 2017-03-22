@@ -18,6 +18,7 @@ class User_model extends CI_Model
     public function getAnonymous()
     {
         $user = new stdClass();
+        $user->id = 0;
         $user->name = trans('pf_anonymous');
         $user->email = 'nomail@nomail';
         return $user;
@@ -64,4 +65,4 @@ class User_model extends CI_Model
     }
 }
 
- ?>
+?>
