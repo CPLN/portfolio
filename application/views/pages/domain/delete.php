@@ -8,7 +8,7 @@
 ?>
 <div>
   <p>
-    <?php echo sprintf(trans('pf_delete_confirm'), xss_clean($domain->name)) ?>
+    <?php echo trans('pf_delete_confirm', $domain->name) ?>
   </p>
   <p>
     <?php echo form_open() ?>

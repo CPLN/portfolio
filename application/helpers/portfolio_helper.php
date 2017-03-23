@@ -15,3 +15,16 @@ if ( ! function_exists('sanitize_int'))
         return filter_var($var, FILTER_VALIDATE_INT);
     }
 }
+
+if (!function_exists('trans'))
+{
+    function trans($phrase, ...$placeholders)
+    {
+        $phrase = lang($phrase);
+        if ($placeholders)
+        {
+            $phrase = sprintf($phrase, ...$placeholders);
+        }
+        return htmlspecialchars($phrase);
+    }
+}
