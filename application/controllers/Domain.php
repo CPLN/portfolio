@@ -24,8 +24,8 @@ class Domain extends CI_Controller
     public function index()
     {
         $domains = $this->domain_model->findAll();
-        $this->load->view('templates/header', array('title' => lang('pf_home')));
-        $this->load->view('pages/domain/index', array('domains' => $domains));
+        $this->load->view('templates/header', ['title' => lang('pf_home')]);
+        $this->load->view('pages/domain/index', ['domains' => $domains]);
         $this->load->view('templates/footer');
     }
 
@@ -37,12 +37,12 @@ class Domain extends CI_Controller
 
         $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
         if($this->form_validation->run()) {
-            $domain = (object) array('name' => $name); // cast (object) pour supprimer le warning 'Undefined var'
+            $domain = (object) ['name' => $name]; // cast (object) pour supprimer le warning 'Undefined var'
             $this->domain_model->add($domain);
             redirect('/domain');
         }
-        $this->load->view('templates/header', array('title' => lang('pf_add')));
-        $this->load->view('pages/domain/add', array('name' => $name));
+        $this->load->view('templates/header', ['title' => lang('pf_add')]);
+        $this->load->view('pages/domain/add', ['name' => $name]);
         $this->load->view('templates/footer');
     }
 
@@ -53,8 +53,8 @@ class Domain extends CI_Controller
           redirect('/domain'); // évite un message d'erreur si l'utilisateur change le numéro dans la barre d'adresse
       }
 
-      $this->load->view('templates/header', array('title' => $domain->name));
-      $this->load->view('pages/domain/show', array('domain' => $domain));
+      $this->load->view('templates/header', ['title' => $domain->name]);
+      $this->load->view('pages/domain/show', ['domain' => $domain]);
       $this->load->view('templates/footer');
     }
 
@@ -77,8 +77,8 @@ class Domain extends CI_Controller
           redirect('/domain/show/' . $id);
       }
 
-      $this->load->view('templates/header', array('title' => $domain->name));
-      $this->load->view('pages/domain/edit', array('domain' => $domain, 'name' => $name));
+      $this->load->view('templates/header', ['title' => $domain->name]);
+      $this->load->view('pages/domain/edit', ['domain' => $domain, 'name' => $name]);
       $this->load->view('templates/footer');
     }
 
@@ -90,8 +90,8 @@ class Domain extends CI_Controller
           $this->domain_model->delete($domain);
           redirect('/domain');
         }
-        $this->load->view('templates/header', array('title' => lang('pf_delete')));
-        $this->load->view('pages/domain/delete', array('domain' => $domain));
+        $this->load->view('templates/header', ['title' => lang('pf_delete')]);
+        $this->load->view('pages/domain/delete', ['domain' => $domain]);
         $this->load->view('templates/footer');
     }
 }
