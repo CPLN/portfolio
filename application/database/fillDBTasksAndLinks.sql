@@ -56,3 +56,7 @@ INSERT INTO users (id, roleId, email, firstname, name,	token, tokenValidity) VAL
 INSERT INTO users (id, roleId, email, firstname, name,	token, tokenValidity) VALUES (5, 2, "alex.terieur@rpn.ch", "Alex","Terrieur", "", 0);
 INSERT INTO users (id, roleId, email, firstname, name,	token, tokenValidity) VALUES (6, 4, "directeur@rpn.ch", "Monsieur","LeDirecteur", "", 0);
 INSERT INTO users (id, roleId, email, firstname, name,	token, tokenValidity) VALUES (7, 3, "un.pion@rpn.ch", "Korinne", "Egger", "", 0);
+
+-- links tasks-users
+INSERT INTO executes (id, userId, taskId, validatorId, start, end, grade, comment) VALUES (1,2,2,1,"2016-12-07", "2016-12-07", 4, "[CCT] Très bonne réalisation, manque un user manual");
+INSERT INTO executes (id, userId, taskId, validatorId, start, end, grade, comment) VALUES (2,2,1,1,"2017-01-07", NULL, 0, "");
