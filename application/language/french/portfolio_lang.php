@@ -20,3 +20,6 @@ $lang['pf_module_title'] = 'Titre du module';
 
 // Domaine
 $lang['pf_domains'] = 'Domaines';
+
+// Material
+$lang['pf_materials'] = 'Materiels';
