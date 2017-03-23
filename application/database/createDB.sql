@@ -79,12 +79,22 @@ CREATE TABLE trains (
 -- Table users
 CREATE TABLE users (
 	id	    INTEGER PRIMARY KEY AUTOINCREMENT,
-	email	CHARACTER VARYING(50),
-	name	CHARACTER VARYING(50),
-	role	INTEGER,
+	roleId	INTEGER,
+	email	  CHARACTER VARYING(50),
+	name	  CHARACTER VARYING(50),
+	firstname CHARACTER VARYING(50),
 	token   CHARACTER VARYING(30),
-	tokenValidity  TIMESTAMP     	
+	tokenValidity  TIMESTAMP,
+    CONSTRAINT FK_roles_roleId FOREIGN KEY (roleId) REFERENCES roles(id)   	
 );
+
+-- Table users
+CREATE TABLE roles (
+	id	    INTEGER PRIMARY KEY AUTOINCREMENT,
+	name	CHARACTER VARYING(50),
+    privileges INTEGER DEFAULT 0
+);
+
 
 -- Table executes
 CREATE TABLE executes (
