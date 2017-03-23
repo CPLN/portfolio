@@ -17,6 +17,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
         <link rel="icon" href="<?php echo base_url(); ?>img/favicon.ico" />
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/normalize.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/main.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>css/vis.min.css">
         <script src="<?php echo base_url(); ?>js/vendor/modernizr-2.8.3.min.js"></script>
         <script src="<?php echo base_url(); ?>js/vendor/vis.min.js"></script>
     </head>

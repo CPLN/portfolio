@@ -12,7 +12,8 @@ class Task_model extends CI_Model
 
     public function findAll()
     {
-        return $this->db->get(self::TABLE)->result_object();
+        $query = $this->db->query('SELECT domains.name AS domainName,domains.id AS domainId,tasks.id,tasks.name,prerequisite.name AS prerequisite,prerequisites.taskId, prerequisites.prerequisiteId FROM tasks LEFT JOIN prerequisites ON tasks.id=prerequisites.taskId LEFT JOIN tasks AS prerequisite ON prerequisite.id=prerequisites.prerequisiteId LEFT JOIN practices ON practices.taskId=tasks.id LEFT JOIN domains ON practices.domainId=domains.id');
+        return $query->result();
     }
 
     public function findOne($id)

@@ -19,6 +19,7 @@ $lang['pf_validate'] = 'Valider';
 $lang['pf_id'] = "Identifiant";
 $lang['pf_yes'] = "Oui";
 $lang['pf_no'] = "Non";
+$lang['pf_reduct'] = "Réduire";
 
 // Tâche
 $lang['pf_description'] = 'Description';

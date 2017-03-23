@@ -8,56 +8,98 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 ?>
 <script type="text/javascript">
+    var network = null;
+    var data = null;
+    var clusters = [];
+
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+
+    function clusterByCid() {
+        network.setData(data);
+        var allCids = [];
+        data.nodes.forEach(function(item) {
+            allCids.push(item.cid);
+        });
+        var uniqueCids = allCids.filter(onlyUnique);
+
+        var clusterOptionsByData;
+        uniqueCids.forEach(function(cid) {
+            clusterOptionsByData = {
+                joinCondition:function(childOptions) {
+                    return childOptions.cid == cid;
+                },
+                processProperties: function (clusterOptions, childNodes, childEdges) {
+                    var totalMass = 0;
+                    for (var i = 0; i < childNodes.length; i++) {
+                        totalMass += childNodes[i].mass;
+                    }
+                    clusterOptions.mass = totalMass;
+                    clusterOptions.label = childNodes[0].grp;
+                    clusterOptions.color = childNodes[0].color;
+                    return clusterOptions;
+                },
+                clusterNodeProperties: {id:'cluster:' + cid, borderWidth:3, shape:'triangleDown'}
+            };
+            network.cluster(clusterOptionsByData);
+        });
+    }
+
     function draw() {
         var nodes = new vis.DataSet(
             [
-                {id: 1, label: 'html color', color: 'lime'},
-                {id: 2, label: 'rgb color', color: 'rgb(255,168,7)'},
-                {id: 3, label: 'hex color', color: '#7BE141'},
-                {id: 4, label: 'rgba color', color: 'rgba(97,195,238,0.5)'},
-                {id: 5, label: 'colorObject', color: {background: 'pink', border: 'purple'}},
-                {
-                    id: 6,
-                    label: 'colorObject + highlight',
-                    color: {background: '#F03967', border: '#713E7F', highlight: {background: 'red', border: 'black'}}
-                },
-                {
-                    id: 7,
-                    label: 'colorObject + highlight + hover',
-                    color: {
-                        background: 'cyan',
-                        border: 'blue',
-                        highlight: {background: 'red', border: 'blue'},
-                        hover: {background: 'white', border: 'red'}
-                    }
+            <?php
+            // permet de ne mettre dans vis qu'une fois le même noeuds car la requête retourne plusieurs fois la même
+            // tâche si elle est associée à plusieurs autre tâche (prerequisite multiple)
+            $ids = array();
+            $colors = array('#C2FABC','#97C2FC','orange','#FB7E81');
+            foreach ($tasks as $task) {
+                if(!in_array($task->id, $ids)) {
+                    $ids[] = $task->id;
+                    print "{id:{$task->id}, label:'{$task->name}', color:'{$colors[$task->domainId]}', cid:{$task->domainId}, grp:'{$task->domainName}'},\n";
                 }
+            }
+            ?>
             ]);
         var edges = new vis.DataSet(
             [
-                {from: 1, to: 3},
-                {from: 1, to: 2},
-                {from: 2, to: 4},
-                {from: 2, to: 5},
-                {from: 2, to: 6},
-                {from: 4, to: 7},
+            <?php foreach ($tasks as $task):
+                if(!is_null($task->taskId) and !is_null($task->prerequisiteId)):?>
+                {from:<?php print $task->taskId;?>, to:<?php print $task->prerequisiteId;?>, arrows:'from', color:{color:'rgba(30,30,30,0.2)', highlight:'blue'}},
+            <?php endif;endforeach; ?>
             ]);
         var container = document.getElementById('netTasks');
-        var data = {
+        data = {
             nodes: nodes,
             edges: edges
         };
         var options = {
             nodes: {borderWidth: 2},
-            interaction: {hover: true}
-        }
-        var network = new vis.Network(container, data, options);
+            interaction: {hover: true},
+            manipulation: {
+                enabled: true,
+                addNode: false,
+                addEdge: true
+            }
+        };
+        network = new vis.Network(container, data, options);
+        network.on('selectNode', function(params) {
+            if (params.nodes.length == 1) {
+                if (network.isCluster(params.nodes[0]) == true) {
+                    network.openCluster(params.nodes[0]);
+                }
+                else {
+                    var item = nodes.get(params.nodes[0]);
+                    window.location.href = '/task/show/' + item.id;
+                }
+            }
+        });
     }
 </script>
 <h1><?php echo lang('pf_tasks');?></h1>
 <ul>
-    <?php foreach ($tasks as $task): ?>
-    <li><a href="<?php echo site_url('/task/show/' . xss_clean($task->id)) ?>"><?php echo xss_clean($task->name) ?></a> <a href="<?php echo site_url('/task/delete/' . xss_clean($task->id)) ?>"><?php echo lang('pf_delete') ?></a></li>
-    <?php endforeach; ?>
-    <li><a href="<?php echo site_url('/task/add') ?>"><?php echo lang('pf_add') ?></a></li>
+    <li><a href="#" title="<?php echo lang('pf_reduct') ?>" onclick="clusterByCid();return false;"><img src="<?php print base_url();?>img/network/minus_p.png" alt="<?php echo lang('pf_reduct') ?>"/></a></li>
+    <li><a href="<?php echo site_url('/task/add') ?>" title="<?php echo lang('pf_add') ?>"><img src="<?php print base_url();?>img/network/addNodeIcon.png" alt="<?php echo lang('pf_add') ?>"/></a></li>
 </ul>
-<div id="netTasks"></div>
+<div id="netTasks" style="width:90%;height: 700px;"></div>
