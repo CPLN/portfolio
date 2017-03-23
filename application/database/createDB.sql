@@ -14,10 +14,10 @@ CREATE TABLE tasks (
 
 -- Table prerequistes
 CREATE TABLE prerequistes (
-  tasksId				INTEGER,
+  taskId				INTEGER,
   prerequiredTaskId		INTEGER,
-  CONSTRAINT PK_prerequistes PRIMARY KEY (tasksId, prerequiredTaskId)
-  CONSTRAINT FK_tasks_taskId FOREIGN KEY (tasksId) REFERENCES tasks(id)
+  CONSTRAINT PK_prerequistes PRIMARY KEY (taskId, prerequiredTaskId)
+  CONSTRAINT FK_tasks_taskId FOREIGN KEY (taskId) REFERENCES tasks(id)
   CONSTRAINT FK_tasks_prerequiredTaskId FOREIGN KEY (prerequiredTaskId) REFERENCES tasks(id)
 );
 
