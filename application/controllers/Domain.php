@@ -24,8 +24,8 @@ class Domain extends CI_Controller
     public function index()
     {
         $domains = $this->domain_model->findAll();
-        $this->load->view('templates/header', ['title' => lang('pf_home')]);
-        $this->load->view('pages/domain/index', ['domains' => $domains]);
+        $this->load->view('templates/header', array('title' => lang('pf_home')));
+        $this->load->view('pages/domain/index', array('domains' => $domains));
         $this->load->view('templates/footer');
     }
 
@@ -33,16 +33,15 @@ class Domain extends CI_Controller
     {
         $this->load->library('table');
 
-        $name = $this->input->post('name');
+        $name = $this->input->post('name', TRUE);
 
         $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
         if($this->form_validation->run()) {
-            $domain->name = $name;
-
+            $domain = (object) array('name' => $name); // cast (object) pour supprimer le warning 'Undefined var'
             $this->domain_model->add($domain);
             redirect('/domain');
         }
-        $this->load->view('templates/header', ['title' => lang('pf_add')]);
+        $this->load->view('templates/header', array('title' => lang('pf_add')));
         $this->load->view('pages/domain/add', array('name' => $name));
         $this->load->view('templates/footer');
     }
@@ -50,9 +49,12 @@ class Domain extends CI_Controller
     public function show($id)
     {
       $domain = $this->domain_model->findOne($id);
+      if(is_null($domain)) {
+          redirect('/domain'); // évite un message d'erreur si l'utilisateur change le numéro dans la barre d'adresse
+      }
 
-      $this->load->view('templates/header', ['title' => $domain->name]);
-      $this->load->view('pages/domain/show', ['domain' => $domain]);
+      $this->load->view('templates/header', array('title' => $domain->name));
+      $this->load->view('pages/domain/show', array('domain' => $domain));
       $this->load->view('templates/footer');
     }
 
@@ -62,11 +64,11 @@ class Domain extends CI_Controller
 
       $domain = $this->domain_model->findOne($id);
 
-      if ($this->input->post('name') === $domain->name) {
+      if ($this->input->post('name', TRUE) === $domain->name) {
         redirect('/domain/show/' . $id);
       }
 
-      $name = $this->input->post('name') ?: $domain->name;
+      $name = $this->input->post('name', TRUE) ?: $domain->name;
 
       $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
       if($this->form_validation->run()) {
@@ -75,21 +77,21 @@ class Domain extends CI_Controller
           redirect('/domain/show/' . $id);
       }
 
-      $this->load->view('templates/header', ['title' => $domain->name]);
-      $this->load->view('pages/domain/edit', ['domain' => $domain, 'name' => $name]);
+      $this->load->view('templates/header', array('title' => $domain->name));
+      $this->load->view('pages/domain/edit', array('domain' => $domain, 'name' => $name));
       $this->load->view('templates/footer');
     }
 
     public function delete($id)
     {
         $domain = $this->domain_model->findOne($id);
-        $validation = $this->input->post('delete_confirm');
+        $validation = $this->input->post('delete_confirm', TRUE);
         if (isset($validation)) {
           $this->domain_model->delete($domain);
           redirect('/domain');
         }
-        $this->load->view('templates/header', ['title' => lang('pf_delete')]);
-        $this->load->view('pages/domain/delete', ['domain' => $domain]);
+        $this->load->view('templates/header', array('title' => lang('pf_delete')));
+        $this->load->view('pages/domain/delete', array('domain' => $domain));
         $this->load->view('templates/footer');
     }
 }
