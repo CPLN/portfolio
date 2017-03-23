@@ -1,6 +1,7 @@
 .DS_Store
 
-application/database/portfolio.db
+*.db
+*.db-journal
 
 application/cache/*
 !application/cache/index.html
