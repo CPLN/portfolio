@@ -1,15 +1,14 @@
 -- Drop Script - SQLite3 
 
-  
-DROP TABLE tasks;
-DROP TABLE prerequistes;
-DROP TABLE domains;
-DROP TABLE practices;
-DROP TABLE materials;
-DROP TABLE needs;
-DROP TABLE ressources;
-DROP TABLE modules;
-DROP TABLE trains;
-DROP TABLE users;
-DROP TABLE roles;
-DROP TABLE executes;
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS prerequistes;
+DROP TABLE IF EXISTS domains;
+DROP TABLE IF EXISTS practices;
+DROP TABLE IF EXISTS materials;
+DROP TABLE IF EXISTS needs;
+DROP TABLE IF EXISTS ressources;
+DROP TABLE IF EXISTS modules;
+DROP TABLE IF EXISTS trains;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS executes;
