@@ -42,13 +42,18 @@ class User_model extends CI_Model
         return $token;
     }
 
-    public function setToken($email)
+    public function setUpToken($email)
     {
         $user = $this->findOneBy(['email' => $email]);
-        $token = $this->generateToken();
-        $user->token = $token;
-        $user->tokenValidity = time() + self::TOKEN_VALIDITY_DURATION;
-        $this->db->update(self::TABLE, $user, ['id' => $user->id]);
+        if ($user-> != 0)
+        {
+            $token = $this->generateToken();
+            $user->token = $token;
+            $user->tokenValidity = time() + self::TOKEN_VALIDITY_DURATION;
+            $this->db->update(self::TABLE, $user, ['id' => $user->id]);
+            return $token;
+        }
+        return null;
     }
 
     public function isTokenValid($token)

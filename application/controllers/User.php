@@ -25,9 +25,14 @@ class User extends CI_Controller
         if ($this->form_validation->run())
         {
             $email = trim($this->input->post('email'));
-            $this->user_model->setToken($email);
+            $token = $this->user_model->setUpToken($email);
 
-            // TODO Envoyer l'e-mail
+            $this->load->library('email');
+            $this->email->from(PF_LOGIN_EMAIL_SENDER);
+            $this->email->to($email);
+            $this->email->subject(trans('pf_login_email_subject'));
+            $this->email->message(trans('pf_login_email_message', site_url('user/login_confirm/' . $token)));
+            // TODO Décommenter pour faire un envoi réel: $this->email->send();
 
             $this->load->view('templates/header', ['title' => trans('pf_email_sent')]);
             $this->load->view('pages/user/email-sent', ['email' => $email]);
