@@ -10,6 +10,6 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 <!DOCTYPE html>
 <html>
     <head>
-        <title><?php echo xss_clean($title) ?> - Portfolio - CPLN</title>
+        <title><?php echo isset($title) ? $title : trans('pf_home') ?> - Portfolio - CPLN</title>
     </head>
     <body>
