@@ -24,7 +24,7 @@ class Domain extends CI_Controller
     public function index()
     {
         $domains = $this->domain_model->findAll();
-        $this->load->view('templates/header', ['title' => lang('pf_home')]);
+        $this->load->view('templates/header', ['title' => trans('pf_home')]);
         $this->load->view('pages/domain/index', ['domains' => $domains]);
         $this->load->view('templates/footer');
     }
@@ -35,13 +35,13 @@ class Domain extends CI_Controller
 
         $name = $this->input->post('name', TRUE);
 
-        $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
+        $this->form_validation->set_rules('name', trans('pf_name'), 'trim|required|is_unique[domains.name]');
         if($this->form_validation->run()) {
             $domain = (object) ['name' => $name]; // cast (object) pour supprimer le warning 'Undefined var'
             $this->domain_model->add($domain);
             redirect('/domain');
         }
-        $this->load->view('templates/header', ['title' => lang('pf_add')]);
+        $this->load->view('templates/header', ['title' => trans('pf_add')]);
         $this->load->view('pages/domain/add', ['name' => $name]);
         $this->load->view('templates/footer');
     }
@@ -70,7 +70,7 @@ class Domain extends CI_Controller
 
       $name = $this->input->post('name', TRUE) ?: $domain->name;
 
-      $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[domains.name]');
+      $this->form_validation->set_rules('name', trans('pf_name'), 'trim|required|is_unique[domains.name]');
       if($this->form_validation->run()) {
           $domain->name = $name;
           $this->domain_model->edit($domain);
@@ -90,7 +90,7 @@ class Domain extends CI_Controller
           $this->domain_model->delete($domain);
           redirect('/domain');
         }
-        $this->load->view('templates/header', ['title' => lang('pf_delete')]);
+        $this->load->view('templates/header', ['title' => trans('pf_delete')]);
         $this->load->view('pages/domain/delete', ['domain' => $domain]);
         $this->load->view('templates/footer');
     }

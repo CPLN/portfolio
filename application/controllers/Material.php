@@ -24,7 +24,7 @@ class Material extends CI_Controller
     public function index()
     {
         $materials = $this->material_model->findAll();
-        $this->load->view('templates/header', ['title' => lang('pf_home')]);
+        $this->load->view('templates/header', ['title' => trans('pf_home')]);
         $this->load->view('pages/material/index', ['materials' => $materials]);
         $this->load->view('templates/footer');
     }
@@ -39,13 +39,13 @@ class Material extends CI_Controller
             redirect('/material');
         }
 
-        $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[materials.name]');
+        $this->form_validation->set_rules('name', trans('pf_name'), 'trim|required|is_unique[materials.name]');
         if($this->form_validation->run()) {
             $material = (object) ['name' => $name];
             $this->material_model->add($material);
             redirect('/material');
         }
-        $this->load->view('templates/header', ['title' => lang('pf_add')]);
+        $this->load->view('templates/header', ['title' => trans('pf_add')]);
         $this->load->view('pages/material/add', ['name' => $name]);
         $this->load->view('templates/footer');
     }
@@ -74,7 +74,7 @@ class Material extends CI_Controller
 
       $name = $this->input->post('name', TRUE) ?: $material->name;
 
-      $this->form_validation->set_rules('name', lang('pf_name'), 'trim|required|is_unique[materials.name]');
+      $this->form_validation->set_rules('name', trans('pf_name'), 'trim|required|is_unique[materials.name]');
       if($this->form_validation->run()) {
           $material->name = $name;
           $this->material_model->edit($material);
@@ -94,7 +94,7 @@ class Material extends CI_Controller
           $this->material_model->delete($material);
           redirect('/material');
         }
-        $this->load->view('templates/header', ['title' => lang('pf_delete')]);
+        $this->load->view('templates/header', ['title' => trans('pf_delete')]);
         $this->load->view('pages/material/delete', ['material' => $material]);
         $this->load->view('templates/footer');
     }

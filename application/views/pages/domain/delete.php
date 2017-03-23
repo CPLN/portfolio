@@ -8,12 +8,12 @@
 ?>
 <div>
   <p>
-    <?php echo sprintf(lang('pf_delete_confirm'), xss_clean($domain->name)) ?>
+    <?php echo sprintf(trans('pf_delete_confirm'), xss_clean($domain->name)) ?>
   </p>
   <p>
     <?php echo form_open() ?>
-    <?php echo form_submit('delete_confirm', lang('pf_validate')) ?>
+    <?php echo form_submit('delete_confirm', trans('pf_validate')) ?>
     <?php echo form_close() ?>
-    <a href="<?php echo site_url('/domain/') ?>"><?php echo lang('pf_back') ?></a>
+    <a href="<?php echo site_url('/domain/') ?>"><?php echo trans('pf_back') ?></a>
   </p>
 </div>
