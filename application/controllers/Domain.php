@@ -33,24 +33,26 @@ class Domain extends CI_Controller
     {
         $this->load->library('table');
 
-        $name = $this->input->post('name');
+        $name = $this->input->post('name', TRUE);
 
         $this->form_validation->set_rules('name', trans('pf_name'), 'trim|required|is_unique[domains.name]');
         if($this->form_validation->run()) {
-            //TODO $domain = new object();
+            $domain = new StdObject();
             $domain->name = $name;
-
             $this->domain_model->add($domain);
             redirect('/domain'); //TODO Rediriger vers show
         }
         $this->load->view('templates/header', ['title' => trans('pf_add')]);
-        $this->load->view('pages/domain/add', array('name' => $name));
+        $this->load->view('pages/domain/add', compact('name'));
         $this->load->view('templates/footer');
     }
 
     public function show($id)
     {
       $domain = $this->domain_model->findOne($id);
+      if(is_null($domain)) {
+          redirect('/domain'); // évite un message d'erreur si l'utilisateur change le numéro dans la barre d'adresse
+      }
 
       $this->load->view('templates/header', ['title' => $domain->name]);
       $this->load->view('pages/domain/show', ['domain' => $domain]);
@@ -63,11 +65,11 @@ class Domain extends CI_Controller
 
       $domain = $this->domain_model->findOne($id);
 
-      if ($this->input->post('name') === $domain->name) {
+      if ($this->input->post('name', TRUE) === $domain->name) {
         redirect('/domain/show/' . $id);
       }
 
-      $name = $this->input->post('name') ?: $domain->name;
+      $name = $this->input->post('name', TRUE) ?: $domain->name;
 
       $this->form_validation->set_rules('name', trans('pf_name'), 'trim|required|is_unique[domains.name]');
       if($this->form_validation->run()) {
@@ -84,7 +86,7 @@ class Domain extends CI_Controller
     public function delete($id)
     {
         $domain = $this->domain_model->findOne($id);
-        $validation = $this->input->post('delete_confirm');
+        $validation = $this->input->post('delete_confirm', TRUE);
         if (isset($validation)) {
           $this->domain_model->delete($domain);
           redirect('/domain');
