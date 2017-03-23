@@ -31,6 +31,12 @@ class User_model extends CI_Model
         return $user;
     }
 
+    public function add($user)
+    {
+        $this->db->insert(self::TABLE, $user);
+        return $this->db->insert_id();
+    }
+
     public function generateToken($length = 20)
     {
         $allowedCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_';
@@ -44,30 +50,33 @@ class User_model extends CI_Model
 
     public function setUpToken($email)
     {
-        $user = $this->findOneBy(['email' => $email]);
-        if ($user-> != 0)
+        $user = $this->findOneBy(compact('email'));
+        if ($user->id == 0)
         {
-            $token = $this->generateToken();
-            $user->token = $token;
-            $user->tokenValidity = time() + self::TOKEN_VALIDITY_DURATION;
-            $this->db->update(self::TABLE, $user, ['id' => $user->id]);
-            return $token;
+            $user = new StdClass();
+            $user->email = $email;
+            $user->id = $this->add($this->clean($user));
         }
-        return null;
+
+        $token = $this->generateToken();
+        $user->token = $token;
+        $user->tokenValidity = time() + self::TOKEN_VALIDITY_DURATION;
+        $this->db->update(self::TABLE, $user, ['id' => $user->id]);
+        return $token;
     }
 
-    public function isTokenValid($token)
+    public function getUserFromToken($token)
     {
-        $users = $this->db->get_where(self::TABLE, ['token' => $token])->result_object();
-        if (sizeof($users) == 0) return false;
+        $users = $this->db->get_where(self::TABLE, compact('token'))->result_object();
+        if (sizeof($users) == 0) return $this->getAnonymous();
 
         $user = $users[0];
         if ($user->tokenValidity >= time())
         {
             $this->invalidateToken($user);
-            return true;
+            return $user;
         }
-        return false;
+        return $this->getAnonymous();
     }
 
     private function invalidateToken($user)
@@ -75,6 +84,12 @@ class User_model extends CI_Model
         $user->tokenValidity = 0;
         $this->db->where(['id' => $user->id]);
         $this->db->update(self::TABLE, $user);
+    }
+
+    private function clean($user)
+    {
+        $user->email = trim($user->email);
+        return $user;
     }
 }
 

@@ -32,10 +32,12 @@ class User extends CI_Controller
             $this->email->to($email);
             $this->email->subject(trans('pf_login_email_subject'));
             $this->email->message(trans('pf_login_email_message', site_url('user/login_confirm/' . $token)));
-            // TODO Décommenter pour faire un envoi réel: $this->email->send();
+
+            $this->email->send();
 
             $this->load->view('templates/header', ['title' => trans('pf_email_sent')]);
-            $this->load->view('pages/user/email-sent', ['email' => $email]);
+            // TODO Ne pas envoyer le $token à la vue
+            $this->load->view('pages/user/email-sent', compact('email', 'token'));
             $this->load->view('templates/footer');
             return;
         }
@@ -46,7 +48,9 @@ class User extends CI_Controller
     }
 
     public function login_confirm($token) {
-
+        $user = $this->user_model->getUserFromToken($token);
+        if ($user->id != 0) remember_user($user);
+        redirect('/');
     }
 }
 
