@@ -24,3 +24,5 @@ $lang['pf_domains'] = 'Domaines';
 // Utilisateur
 $lang['pf_anonymous'] = 'Anonyme';
 $lang['pf_login'] = 'Connexion';
+$lang['pf_email_sent'] = 'E-mail envoyé';
+$lang['pf_email_sent_text'] = 'Un e-mail a été envoyé avec succès à l\'adresse « %s ». Merci de consulter votre boite pour terminer la connexion au site Portfolio.';

@@ -15,6 +15,13 @@ class User_model extends CI_Model
         return $this->db->get(self::TABLE)->result_object();
     }
 
+    public function findOneBy($where)
+    {
+        $users = $this->db->get_where(self::TABLE, $where)->result_object();
+        if (sizeof($users) == 0) return $this->getAnonymous();
+        return $users[0];
+    }
+
     public function getAnonymous()
     {
         $user = new stdClass();
@@ -35,12 +42,13 @@ class User_model extends CI_Model
         return $token;
     }
 
-    public function setToken()
+    public function setToken($email)
     {
+        $user = $this->findOneBy(['email' => $email]);
         $token = $this->generateToken();
-        $user = get_user();
         $user->token = $token;
         $user->tokenValidity = time() + self::TOKEN_VALIDITY_DURATION;
+        $this->db->update(self::TABLE, $user, ['id' => $user->id]);
     }
 
     public function isTokenValid($token)

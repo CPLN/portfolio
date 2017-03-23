@@ -20,14 +20,22 @@ class User extends CI_Controller
     {
         $this->load->library('table');
 
-        $this->form_validation->set_rules('email', trans('pf_email'), 'trim|required');
+        $this->form_validation->set_rules('email', trans('pf_email'), 'trim|required|valid_email');
 
         if ($this->form_validation->run())
         {
-            echo 'OK';
+            $email = trim($this->input->post('email'));
+            $this->user_model->setToken($email);
+
+            // TODO Envoyer l'e-mail
+
+            $this->load->view('templates/header', ['title' => trans('pf_email_sent')]);
+            $this->load->view('pages/user/email-sent', ['email' => $email]);
+            $this->load->view('templates/footer');
+            return;
         }
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', ['title' => trans('pf_login')]);
         $this->load->view('pages/user/login');
         $this->load->view('templates/footer');
     }
