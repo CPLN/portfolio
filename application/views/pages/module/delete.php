@@ -10,10 +10,8 @@
     <p>
         <?php echo trans('pf_delete_confirm', $module->name) ?>
     </p>
-    <p>
         <?php echo form_open() ?>
         <?php echo form_submit('delete_confirm', trans('pf_validate')) ?>
         <?php echo form_close() ?>
-        <a href="<?php echo site_url('/module/') ?>"><?php echo trans('pf_back') ?></a>
-    </p>
+    <p><a href="<?php echo site_url('/module/') ?>"><?php echo trans('pf_back') ?></a></p>
 </div>
