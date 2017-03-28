@@ -37,9 +37,9 @@ INSERT INTO needs (taskId, materialId) VALUES (4,5);
 INSERT INTO needs (taskId, materialId) VALUES (5,5);
 
 -- links for prerequisted tasks
-INSERT INTO prerequistes (tasksId, prerequiredTaskId) VALUES (1,2);
-INSERT INTO prerequistes (tasksId, prerequiredTaskId) VALUES (3,2);
-INSERT INTO prerequistes (tasksId, prerequiredTaskId) VALUES (5,4);
+INSERT INTO prerequistes (taskId, prerequiredTaskId) VALUES (1,2);
+INSERT INTO prerequistes (taskId, prerequiredTaskId) VALUES (3,2);
+INSERT INTO prerequistes (taskId, prerequiredTaskId) VALUES (5,4);
 
 
 -- Ressources for tasks

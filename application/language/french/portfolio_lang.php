@@ -22,6 +22,11 @@ $lang['pf_module_title'] = 'Titre du module';
 // Domaine
 $lang['pf_domains'] = 'Domaines';
 
+// Module
+$lang['pf_modules'] = 'Modules';
+$lang['pf_modules_ictcode'] = 'Code ICT';
+$lang['pf_modules_titre'] = 'Titre';
+
 // Utilisateur
 $lang['pf_anonymous'] = 'Anonyme';
 $lang['pf_login'] = 'Connexion';

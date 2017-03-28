@@ -1,7 +1,6 @@
 <?php
 
 /**
- * Created by PhpStorm.
  * User: ccaillet
  * Date: 22.03.17
  * Time: 17:05
@@ -38,7 +37,7 @@ class Module extends CI_Controller
         $this->form_validation->set_rules('ictcode', trans('pf_module_code'), 'trim|required|is_unique[modules.ictCode]');
         $this->form_validation->set_rules('title', trans('pf_module_title'), 'trim|required');
         if($this->form_validation->run()) {
-			$module = new StdClass();
+            $module = new StdClass();
             $module->ictCode = $ictCode;
             $module->title   = $title;
             $this->module_model->add($module);
@@ -60,31 +59,33 @@ class Module extends CI_Controller
 
     public function edit($id)
     {
-      $this->load->library('table');
+        $this->load->library('table');
 
-      $module = $this->module_model->findOne($id);
+        $module = $this->module_model->findOne($id);
 
-      if ($this->input->post('ictcode', TRUE) === $module->ictCode) && 
-	     ($this->input->post('title', TRUE) === $module->title){
-        redirect('/module/show/' . $id);
-      }
+        if (($this->input->post('ictcode', TRUE) === $module->ictCode) &&
+            ($this->input->post('title', TRUE) === $module->title)
+        ) {
+            redirect('/module/show/' . $id);
+        }
 
-	  $ictCode = $this->input->post('ictcode') ?: $module->ictCode;
-      $title = $this->input->post('title') ?: $module->title;
+        $ictCode = $this->input->post('ictcode') ?: $module->ictCode;
+        $title = $this->input->post('title') ?: $module->title;
 
- 
-		$this->form_validation->set_rules('ictcode', trans('pf_module_code'), 'trim|required|is_unique[modules.ictCode]');
-		$this->form_validation->set_rules('title', trans('pf_module_title'), 'trim|required');
-		if($this->form_validation->run()) {
-			$module->ictCode = $ictCode;
-			$module->title   = $title;
-			//@todo id =  $this->module_model->add($module);
-			// redirect('/module/show/' . $id);
-        }	  
 
-      $this->load->view('templates/header', ['title' => $module->ictCode.'-'.$module->title]);
-      $this->load->view('pages/module/edit', ['module' => $module, 'ictcode' => $ictCode, 'title' => $title]);
-      $this->load->view('templates/footer');
+        $this->form_validation->set_rules('ictcode', trans('pf_module_code'), 'trim|required|is_unique[modules.ictCode]');
+        $this->form_validation->set_rules('title', trans('pf_module_title'), 'trim|required');
+
+        if ($this->form_validation->run()) {
+            $module->ictCode = $ictCode;
+            $module->title = $title;
+            $id = $this->module_model->add($module);
+            redirect('/module/show/' . $id);
+        }
+
+        $this->load->view('templates/header', ['title' => $module->ictCode . '-' . $module->title]);
+        $this->load->view('pages/module/edit', ['module' => $module, 'ictcode' => $ictCode, 'title' => $title]);
+        $this->load->view('templates/footer');
     }
 
     public function delete($id)
@@ -92,11 +93,14 @@ class Module extends CI_Controller
         $module = $this->module_model->findOne($id);
         $validation = $this->input->post('delete_confirm');
         if (isset($validation)) {
-          $this->module_model->delete($module);
-          redirect('/module');
+            $this->module_model->delete($module);
+            redirect('/module');
         }
+
         $this->load->view('templates/header', ['title' => trans('pf_delete')]);
         $this->load->view('pages/module/delete', ['module' => $module]);
         $this->load->view('templates/footer');
     }
+
+    // @todo toString() pour récupérer le nom avec le Code-Titre
 }
